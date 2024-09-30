@@ -1,0 +1,142 @@
+@if (isAdmin) {
+<div
+  class="mx-auto max-w-md px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl my-12"
+>
+  <h1 class="text-2xl font-bold mb-8">Créer un livre</h1>
+  <form [formGroup]="authorForm" (ngSubmit)="addAuthor()" id="form">
+    <div class="relative z-0 w-full mb-5">
+      <input
+        type="text"
+        formControlName="firstName"
+        placeholder=" "
+        required
+        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+      />
+      <label
+        for="firstName"
+        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+        >Nom de l'auteur</label
+      >
+      <span class="text-sm text-red-600 hidden" id="error"
+        >nom de l'auteur est requis</span
+      >
+    </div>
+
+    <div class="relative z-0 w-full mb-5">
+      <input
+        type="text"
+        formControlName="lastName"
+        placeholder=" "
+        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+      />
+      <label
+        for="lastName"
+        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+        >Prénom de l'auteur</label
+      >
+      <span class="text-sm text-red-600 hidden" id="error"
+        >Prénom de l'auteur est requis</span
+      >
+    </div>
+
+    <button
+      type="submit"
+      class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-pink-500 hover:bg-pink-600 hover:shadow-lg focus:outline-none"
+    >
+      Ajouter un livre
+    </button>
+  </form>
+</div>
+} @for (author of authors; track $index) {
+<div class="flex items-center justify-evenly flex-wrap py-8">
+  <div class="w-full max-w-lg px-10 py-8 bg-gray-100 rounded-lg shadow-xl">
+    <div class="max-w-md space-y-6">
+      <h2 class="text-2xl font-bold">Auteur :</h2>
+      <div class="text-base leading-3">
+        <p class="font-normal text-gray-700">
+          {{ author.firstName }} {{ author.lastName }}
+        </p>
+      </div>
+      <div class="flex justify-evenly">
+        <button
+          routerLink="{{ author.id }}"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-stone-800 text-white shadow hover:bg-primary/90 h-9 px-4 py-2"
+        >
+          Voir détail
+        </button>
+        @if (isAdmin) {
+        <button
+          (click)="deleteAuthor(author)"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-stone-800 text-white shadow hover:bg-primary/90 h-9 px-4 py-2"
+        >
+          Supprimer l'auteur
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+  @if (isAdmin) {
+  <div
+    class="max-w-lg min-w-96 px-6 py-12 bg-gray-100 border-0 shadow-lg sm:rounded-3xl my-12"
+  >
+    <h1 class="text-2xl font-bold mb-8">Modifier le livre</h1>
+    <form [formGroup]="authorForm" (ngSubmit)="updateAuthor(author)">
+      <div class="relative z-0 w-full mb-5">
+        <input
+          type="text"
+          formControlName="firstName"
+          placeholder=" "
+          required
+          class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+        />
+        <label
+          for="firstName"
+          class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+          >Nom de l'auteur</label
+        >
+        <span class="text-sm text-red-600 hidden" id="error"
+          >Nom de l'auteur requis</span
+        >
+      </div>
+
+      <div class="relative z-0 w-full mb-5">
+        <input
+          type="text"
+          formControlName="lastName"
+          placeholder=" "
+          class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+        />
+        <label
+          for="lastName"
+          class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+          >Prénom de l'auteur</label
+        >
+        <span class="text-sm text-red-600 hidden" id="error"
+          >Prénom de l'auteur est requis</span
+        >
+      </div>
+      <button
+        type="submit"
+        class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-pink-500 hover:bg-pink-600 hover:shadow-lg focus:outline-none"
+      >
+        Modifier
+      </button>
+    </form>
+  </div>
+  }
+</div>
+}
+<div class="fixed bottom-0 left-1/2 -translate-x-1/2">
+  <button
+    (click)="previousPage()"
+    class="ml-4 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-stone-800 text-white shadow hover:bg-primary/90 h-9 px-4 py-2"
+  >
+    Page précédente
+  </button>
+  <button
+    (click)="nextPage()"
+    class="ml-4 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-stone-800 text-white shadow hover:bg-primary/90 h-9 px-4 py-2"
+  >
+    Page suivante
+  </button>
+</div>

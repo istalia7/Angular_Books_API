@@ -1,0 +1,50 @@
+<!-- form to update book -->
+<!-- <form [formGroup]="bookForm" (ngSubmit)="updateBook()">
+  <div>
+    <label for="title">Titre :</label>
+    <input type="text" formControlName="title" />
+  </div>
+  <div>
+    <label for="coverText">Quatrième de couverture</label>
+    <input type="text" formControlName="coverText" />
+  </div>
+  <div>
+    <label for="comment">Commentaire :</label>
+    <input type="text" formControlName="comment" />
+  </div>
+  <div>
+    <label for="idAuthor">Id Auteur :</label>
+    <input type="number" formControlName="idAuthor" />
+  </div>
+
+  <button type="submit">Modifier ce livre</button>
+</form> -->
+@if (books) {
+<div
+  class="w-full mx-auto max-w-lg px-10 py-8 bg-gray-100 rounded-lg shadow-xl mt-4"
+>
+  <div class="max-w-md space-y-6">
+    <h2 class="text-2xl font-bold">{{ books.title }}</h2>
+    <div class="text-base leading-3">
+      <p class="font-normal text-gray-700">Livre numéro : {{ books.id }}</p>
+    </div>
+    <div class="text-base leading-3">
+      <p class="font-normal text-gray-700">{{ books.coverText }}</p>
+    </div>
+
+    <div class="text-base leading-3">
+      <p class="font-normal text-gray-700">{{ books.comment }}</p>
+    </div>
+
+    <h3 class="font-medium text-lg">Auteur :</h3>
+    <div class="text-base leading-3">
+      <p class="font-normal text-gray-700">{{ books.author.firstName }}</p>
+    </div>
+
+    <div class="text-base leading-3">
+      <p class="font-normal text-gray-700">{{ books.author.lastName }}</p>
+    </div>
+  </div>
+</div>
+<!-- <button (click)="deleteBook(books)">Supprimer le livre</button> -->
+}

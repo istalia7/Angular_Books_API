@@ -1,0 +1,310 @@
+@if (isAdmin) {
+<div
+  class="mx-auto max-w-md px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl my-12"
+>
+  <h1 class="text-2xl font-bold mb-8">Créer un livre</h1>
+  <form [formGroup]="bookForm" (ngSubmit)="addBook()" id="form">
+    <div class="relative z-0 w-full mb-5">
+      <input
+        type="text"
+        formControlName="title"
+        placeholder=" "
+        required
+        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+      />
+      <label
+        for="title"
+        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+        >Titre du livre</label
+      >
+      <span class="text-sm text-red-600 hidden" id="error"
+        >Titre du livre est requis</span
+      >
+    </div>
+
+    <div class="relative z-0 w-full mb-5">
+      <input
+        type="text"
+        formControlName="coverText"
+        placeholder=" "
+        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+      />
+      <label
+        for="coverText"
+        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+        >Quatrième de couverture</label
+      >
+      <span class="text-sm text-red-600 hidden" id="error"
+        >Quatrième de couverture est requis</span
+      >
+    </div>
+
+    <div class="relative z-0 w-full mb-5">
+      <input
+        type="text"
+        formControlName="comment"
+        placeholder=" "
+        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+      />
+      <label
+        for="comment"
+        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+        >Commentaire</label
+      >
+      <span class="text-sm text-red-600 hidden" id="error"
+        >Commentaire est requis</span
+      >
+    </div>
+
+    <div class="relative z-0 w-full mb-5">
+      <select
+        formControlName="idAuthor"
+        value=""
+        onclick="this.setAttribute('value', this.value);"
+        class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+      >
+        <option value="" disabled selected>Sélectionnez un Auteur</option>
+        @for (author of authors; track $index) {
+        <option [value]="author.id">
+          {{ author.firstName }} {{ author.lastName }}
+        </option>
+        }
+      </select>
+      <label
+        for="select"
+        class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+        >Id de l'auteur
+      </label>
+      <span class="text-sm text-red-600 hidden" id="error"
+        >Option has to be selected</span
+      >
+    </div>
+
+    <button
+      type="submit"
+      class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-pink-500 hover:bg-pink-600 hover:shadow-lg focus:outline-none"
+    >
+      Ajouter un livre
+    </button>
+  </form>
+</div>
+}
+
+<!-- <form [formGroup]="bookForm" (ngSubmit)="addBook()">
+  <div>
+    <label for="title">Titre :</label>
+    <input type="text" formControlName="title" />
+  </div>
+  <div>
+    <label for="coverText">Quatrième de couverture</label>
+    <input type="text" formControlName="coverText" />
+  </div>
+  <div>
+    <label for="comment">Commentaire :</label>
+    <input type="text" formControlName="comment" />
+  </div> -->
+<!-- <div>
+    <label for="idAuthor">Id Auteur :</label>
+    <input type="number" formControlName="idAuthor" />
+  </div> -->
+<!-- <label for="idAuthor">Id de l'auteur : </label>
+  <select formControlName="idAuthor">
+    <option value="" disabled selected>Sélectionnez un Auteur</option>
+    @for (author of authors; track $index) {
+    <option [value]="author.id">
+      {{ author.firstName }} {{ author.lastName }}
+    </option>
+    }
+  </select>
+
+  <button type="submit">Ajouter un livre</button>
+</form> -->
+
+@for (book of books; track $index) {
+<!-- <div>
+  <p>Livre numéro : {{ book.id }}</p>
+  <h3>{{ book.title }}</h3>
+  <p>{{ book.coverText }}</p>
+  <p>{{ book.comment }}</p>
+  <ul>
+    <li>{{ book.author.firstName }}</li>
+    <li>{{ book.author.lastName }}</li>
+  </ul>
+</div>
+<button routerLink="{{ book.id }}">Voir détail</button>
+<button (click)="deleteBook(book)">Supprimer le livre</button> -->
+<!-- component -->
+
+<div class="flex items-center justify-evenly flex-wrap py-8">
+  <div class="w-full max-w-lg px-10 py-8 bg-gray-100 rounded-lg shadow-xl">
+    <div class="max-w-md space-y-6">
+      <h2 class="text-2xl font-bold">{{ book.title }}</h2>
+      <div class="text-base leading-3">
+        <p class="font-normal text-gray-700">{{ book.coverText }}</p>
+      </div>
+
+      <div class="text-base leading-3">
+        <p class="font-normal text-gray-700">{{ book.comment }}</p>
+      </div>
+
+      <div class="text-base leading-3">
+        <p class="font-normal text-gray-700">{{ book.author.firstName }}</p>
+      </div>
+
+      <div class="text-base leading-3">
+        <p class="font-normal text-gray-700">{{ book.author.lastName }}</p>
+      </div>
+
+      <div class="flex justify-evenly">
+        <button
+          routerLink="{{ book.id }}"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-stone-800 text-white shadow hover:bg-primary/90 h-9 px-4 py-2"
+        >
+          Voir détail
+        </button>
+        @if (isAdmin) {
+        <button
+          (click)="deleteBook(book)"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-stone-800 text-white shadow hover:bg-primary/90 h-9 px-4 py-2"
+        >
+          Supprimer le livre
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+  @if (isAdmin) {
+  <div
+    class="max-w-lg min-w-96 px-6 py-12 bg-gray-100 border-0 shadow-lg sm:rounded-3xl my-12"
+  >
+    <h1 class="text-2xl font-bold mb-8">Modifier le livre</h1>
+    <form [formGroup]="bookFormUpdate" (ngSubmit)="updateBook(book)">
+      <div class="relative z-0 w-full mb-5">
+        <input
+          type="text"
+          formControlName="title"
+          placeholder=" "
+          required
+          class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+        />
+        <label
+          for="title"
+          class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+          >Titre du livre</label
+        >
+        <span class="text-sm text-red-600 hidden" id="error"
+          >Titre du livre est requis</span
+        >
+      </div>
+
+      <div class="relative z-0 w-full mb-5">
+        <input
+          type="text"
+          formControlName="coverText"
+          placeholder=" "
+          class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+        />
+        <label
+          for="coverText"
+          class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+          >Quatrième de couverture</label
+        >
+        <span class="text-sm text-red-600 hidden" id="error"
+          >Quatrième de couverture est requis</span
+        >
+      </div>
+
+      <div class="relative z-0 w-full mb-5">
+        <input
+          type="text"
+          formControlName="comment"
+          placeholder=" "
+          class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+        />
+        <label
+          for="comment"
+          class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+          >Commentaire</label
+        >
+        <span class="text-sm text-red-600 hidden" id="error"
+          >Commentaire est requis</span
+        >
+      </div>
+
+      <div class="relative z-0 w-full mb-5">
+        <select
+          formControlName="idAuthor"
+          value=""
+          onclick="this.setAttribute('value', this.value);"
+          class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+        >
+          <option value="" disabled selected>Sélectionnez un Auteur</option>
+          @for (author of authors; track $index) {
+          <option [value]="author.id">
+            {{ author.firstName }} {{ author.lastName }}
+          </option>
+          }
+        </select>
+        <label
+          for="select"
+          class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+          >Id de l'auteur
+        </label>
+        <span class="text-sm text-red-600 hidden" id="error"
+          >Option doit être sélectionné</span
+        >
+      </div>
+
+      <button
+        type="submit"
+        class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-pink-500 hover:bg-pink-600 hover:shadow-lg focus:outline-none"
+      >
+        Modifier
+      </button>
+    </form>
+  </div>
+  }
+</div>
+<!-- <form [formGroup]="bookForm" (ngSubmit)="updateBook(book)">
+  <div>
+    <label for="title">Titre : </label>
+    <input type="text" formControlName="title" />
+  </div>
+  <div>
+    <label for="coverText">Quatrième de couverture : </label>
+    <input type="text" formControlName="coverText" />
+  </div>
+  <div>
+    <label for="comment">Commentaire : </label>
+    <input type="text" formControlName="comment" />
+  </div> -->
+<!-- <div>
+    <label for="idAuthor">Id Auteur :</label>
+    <input type="number" formControlName="idAuthor" />
+  </div> -->
+<!-- <label for="idAuthor">Id de l'auteur : </label>
+  <select formControlName="idAuthor">
+    <option value="" disabled selected>Sélectionnez un Auteur</option>
+    @for (author of authors; track $index) {
+    <option [value]="author.id">
+      {{ author.firstName }} {{ author.lastName }}
+    </option>
+    }
+  </select>
+  <button type="submit">Modifier ce livre</button>
+</form> -->
+}
+<div class="fixed bottom-0 left-1/2 -translate-x-1/2">
+  <button
+    (click)="previousPage()"
+    class="mr-4 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-stone-800 text-white shadow hover:bg-primary/90 h-9 px-4 py-2"
+  >
+    Page précédente
+  </button>
+  <button
+    (click)="nextPage()"
+    class="ml-4 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-stone-800 text-white shadow hover:bg-primary/90 h-9 px-4 py-2"
+  >
+    Page suivante
+  </button>
+</div>

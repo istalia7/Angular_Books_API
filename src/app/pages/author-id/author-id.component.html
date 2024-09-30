@@ -1,0 +1,53 @@
+<!-- form to update author -->
+<!-- <form [formGroup]="authorForm" (ngSubmit)="updateAuthor()">
+  <div>
+    <label for="lastName">Nom de l'auteur</label>
+    <input type="text" formControlName="lastName" />
+  </div>
+  <div>
+    <label for="firstName">Prénom de l'auteur</label>
+    <input type="text" formControlName="firstName" />
+  </div>
+  <button type="submit">Modifier l'auteur</button>
+</form> -->
+@if (authors) {
+<div
+  class="w-full mx-auto max-w-lg px-10 py-8 bg-gray-100 rounded-lg shadow-xl mt-4"
+>
+  <div class="max-w-md space-y-6">
+    <h3 class="font-bold text-2xl">Auteur :</h3>
+    <div class="text-base leading-3">
+      <p class="font-normal text-gray-700">{{ authors.firstName }}</p>
+    </div>
+
+    <div class="text-base leading-3">
+      <p class="font-normal text-gray-700">{{ authors.lastName }}</p>
+    </div>
+    <!-- {{ authors.firstName }}
+    {{ authors.lastName }} -->
+    <!-- if the author has at least one book -->
+    @if (authors.books.includes(authors.books[0], 0)) {
+    <h2 class="text-lg font-medium">Les livres de l'auteur :</h2>
+    }
+    <!-- returns the books of the author -->
+    @for (book of authors.books; track $index) {
+    <div class="text-base leading-3">
+      <p class="font-normal text-gray-700">{{ book.title }}</p>
+    </div>
+    <div class="text-base leading-3">
+      <p class="font-normal text-gray-700">{{ book.coverText }}</p>
+    </div>
+    <div class="text-base leading-3">
+      <p class="font-normal text-gray-700">{{ book.comment }}</p>
+    </div>
+    <!-- if the author doesn't have any book -->
+    } @empty {
+    <div class="text-base leading-3">
+      <p class="font-normal text-gray-700">
+        Cet auteur n'a actuellement aucun livre
+      </p>
+    </div>
+    }
+  </div>
+</div>
+}
